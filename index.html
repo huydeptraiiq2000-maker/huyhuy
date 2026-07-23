@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giỏ hàng</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; }
+    button { padding: 8px 12px; margin: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <section id="cart">
+    <h2>🛒 Giỏ hàng</h2>
+
+    <div>
+      <button onclick="addToCart('Áo sơ mi', 150000)">Thêm Áo sơ mi</button>
+      <button onclick="addToCart('Quần jeans', 250000)">Thêm Quần jeans</button>
+    </div>
+
+    <ul id="cart-items">
+      <!-- Sản phẩm thêm vào sẽ hiện ở đây -->
+    </ul>
+
+    <h3>
+      Tổng tiền:
+      <span id="total">0</span> VNĐ
+    </h3>
+
+    <button class="buy" onclick="checkout()">Đặt hàng</button>
+  </section>
+
+  <footer>
+    <p>© 2026 Minh Shop</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>let cart = [];
+
+function addToCart(name, price) {
+  const existingItem = cart.find(item => item.name === name);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ name, price, quantity: 1 });
+  }
+
+  renderCart();
+}
+
+function renderCart() {
+  const cartItems = document.getElementById("cart-items");
+  const totalEl = document.getElementById("total");
+
+  cartItems.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<li>Giỏ hàng trống</li>";
+    totalEl.textContent = "0";
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
+    li.textContent = `${item.name} x${item.quantity} - ${itemTotal.toLocaleString("vi-VN")} VNĐ`;
+    cartItems.appendChild(li);
+  });
+
+  totalEl.textContent = total.toLocaleString("vi-VN");
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert("Giỏ hàng chưa có sản phẩm.");
+    return;
+  }
+
+  alert("Đặt hàng thành công!");
+  cart = [];
+  renderCart();
+}
+
+renderCart();
+let cart = [];
+
+function addToCart(name, price) {
+  const existingItem = cart.find(item => item.name === name);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ name, price, quantity: 1 });
+  }
+
+  renderCart();
+}
+
+function renderCart() {
+  const cartItems = document.getElementById("cart-items");
+  const totalEl = document.getElementById("total");
+
+  cartItems.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<li>Giỏ hàng trống</li>";
+    totalEl.textContent = "0";
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+
+    li.textContent = `${item.name} x${item.quantity} - ${itemTotal.toLocaleString("vi-VN")} VNĐ`;
+    cartItems.appendChild(li);
+  });
+
+  totalEl.textContent = total.toLocaleString("vi-VN");
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert("Giỏ hàng chưa có sản phẩm.");
+    return;
+  }
+
+  alert("Đặt hàng thành công!");
+  cart = [];
+  renderCart();
+}
+
+renderCart();
